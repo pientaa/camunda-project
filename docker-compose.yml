@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  camunda:
+    container_name: camunda
+    image: camunda/camunda-bpm-platform:wildfly
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./wars:/camunda/standalone/deployments
+    restart: unless-stopped
