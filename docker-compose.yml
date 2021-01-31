@@ -3,9 +3,13 @@ version: '3'
 services:
   camunda:
     container_name: camunda
-    image: camunda/camunda-bpm-platform:wildfly
+    image: pienta/camunda-project:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    volumes:
-      - ./wars:/camunda/standalone/deployments
+      - "9990:9990"
+    #    volumes:
+    #      - ./wars:/camunda/standalone/deployments
     restart: unless-stopped
