@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  postgres:
+    container_name: postgres
+    image: library/postgres:9.4.12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: camunda-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
   camunda:
     container_name: camunda
     image: pienta/camunda-project:1.0
@@ -11,3 +21,14 @@ services:
       - "8080:8080"
       - "9990:9990"
     restart: unless-stopped
+    environment:
+      DB_DRIVER: org.postgresql.Driver
+      DB_URL: jdbc:postgresql://postgres:5432/camunda-db?autoReconnect=true
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    depends_on:
+      - postgres
+
+networks:
+  camunda-network:
+    driver: bridge
