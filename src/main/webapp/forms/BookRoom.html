@@ -1,46 +1,45 @@
-<!--<script cam-script type="text/form-script">-->
-<!--  $scope.open = function($event) {-->
-<!--    $event.preventDefault();-->
-<!--    $event.stopPropagation();-->
-<!--    $scope.dateFieldOpened = true;-->
-<!--  };-->
+<script cam-script type="text/form-script">
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.dateFieldOpened = true;
+  };
+</script>
 
+<form name="BookApartment">
+    <div class="form-group">
+        <label for="apartmentName">Apartment name</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="apartmentName"
+               name="apartmentName"/></div>
+    <div class="form-group">
+        <label for="fromDate">From date</label>
+        <input class="form-control"
+               cam-variable-name="fromDate"
+               cam-variable-type="Date"
+               datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
+               is-open="dateFieldOpened"
+               name="fromDate"/>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+        </span>
+    </div>
 
-<!--</script>-->
-
-<!--<form name="BookRoom">-->
-<!--    <div class="form-group">-->
-<!--        <label for="roomName">Room name</label>-->
-<!--        <input class="form-control"-->
-<!--               cam-variable-type="String"-->
-<!--               cam-variable-name="roomName"-->
-<!--               name="roomName"/></div>-->
-<!--    <div class="form-group">-->
-<!--        <label for="fromDate">From date</label>-->
-<!--        <input class="form-control"-->
-<!--               cam-variable-name="fromDate"-->
-<!--               cam-variable-type="Date"-->
-<!--               datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"-->
-<!--               is-open="dateFieldOpened"-->
-<!--               name="fromDate"/>-->
-<!--        <span class="input-group-btn">-->
-<!--            <button type="button" class="btn btn-default" ng-click="open($event)">-->
-<!--                <i class="glyphicon glyphicon-calendar"></i>-->
-<!--            </button>-->
-<!--        </span>-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--        <label for="toDate">To date</label>-->
-<!--        <input class="form-control"-->
-<!--               cam-variable-name="toDate"-->
-<!--               cam-variable-type="Date"-->
-<!--               datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"-->
-<!--               is-open="dateFieldOpened"-->
-<!--               name="toDate"/>-->
-<!--        <span class="input-group-btn">-->
-<!--            <button type="button" class="btn btn-default" ng-click="open($event)">-->
-<!--                <i class="glyphicon glyphicon-calendar"></i>-->
-<!--            </button>-->
-<!--        </span>-->
-<!--    </div>-->
-<!--</form>-->
+    <div class="form-group">
+        <label for="toDate">To date</label>
+        <input class="form-control"
+               cam-variable-name="toDate"
+               cam-variable-type="Date"
+               datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
+               is-open="dateFieldOpened"
+               name="toDate"/>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+        </span>
+    </div>
+</form>

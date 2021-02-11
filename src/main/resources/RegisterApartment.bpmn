@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1wpneqv" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:collaboration id="Collaboration_01bmws0">
-    <bpmn:participant id="camunda-project" name="RegisterRoom" processRef="RegisterRoom" />
+    <bpmn:participant id="register-apartment" name="Register Apartment" processRef="RegisterApartment" />
   </bpmn:collaboration>
-  <bpmn:process id="RegisterRoom" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1" camunda:formKey="embedded:app:forms/RegisterRoom.html" camunda:initiator="lessor">
-      <bpmn:outgoing>SequenceFlow_0zq2koh</bpmn:outgoing>
-    </bpmn:startEvent>
+  <bpmn:process id="RegisterApartment" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_1ka7lkd" />
     <bpmn:sequenceFlow id="SequenceFlow_0zq2koh" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_1hcxnoe" />
     <bpmn:sequenceFlow id="SequenceFlow_0527ml4" name="yes" sourceRef="ExclusiveGateway_1hcxnoe" targetRef="Task_0j5jsp3" />
     <bpmn:sequenceFlow id="SequenceFlow_1s377fu" sourceRef="Task_0j5jsp3" targetRef="Task_1k7bl6x" />
     <bpmn:sequenceFlow id="SequenceFlow_1x1z9tk" sourceRef="Task_1k7bl6x" targetRef="EndEvent_06yru2z" />
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1hcxnoe" name="is there any bed?" default="SequenceFlow_0527ml4">
-      <bpmn:incoming>SequenceFlow_0zq2koh</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0527ml4</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_06k4dug</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:scriptTask id="Task_0j5jsp3" name="Valid Room" scriptFormat="groovy">
-      <bpmn:incoming>SequenceFlow_0527ml4</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1s377fu</bpmn:outgoing>
-      <bpmn:script>execution.setVariable("isRoomValid", true)
-execution.setVariable("isRoomValidMessage", "Room with valid numbers of beds was added.")</bpmn:script>
-    </bpmn:scriptTask>
-    <bpmn:userTask id="Task_1k7bl6x" name="Room Cofirmation" camunda:formKey="embedded:app:forms/RegisterRoomConfirmation.html" camunda:assignee="${lessor}">
+    <bpmn:sequenceFlow id="SequenceFlow_06k4dug" name="no" sourceRef="ExclusiveGateway_1hcxnoe" targetRef="Task_15vqxyx">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${numberOfRooms&lt;1}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1e92zsb" sourceRef="Task_15vqxyx" targetRef="Task_1k7bl6x" />
+    <bpmn:endEvent id="EndEvent_06yru2z">
+      <bpmn:incoming>SequenceFlow_1x1z9tk</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Task_1k7bl6x" name="Apartment Confirmation" camunda:formKey="embedded:app:forms/RegisterApartmentConfirmation.html" camunda:assignee="${lessor}">
       <bpmn:incoming>SequenceFlow_1s377fu</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1e92zsb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1x1z9tk</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="EndEvent_06yru2z">
-      <bpmn:incoming>SequenceFlow_1x1z9tk</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_06k4dug" name="no" sourceRef="ExclusiveGateway_1hcxnoe" targetRef="Task_15vqxyx">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${numberOfBeds&lt;1}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1e92zsb" sourceRef="Task_15vqxyx" targetRef="Task_1k7bl6x" />
-    <bpmn:scriptTask id="Task_15vqxyx" name="Invalid Room" scriptFormat="groovy">
+    <bpmn:scriptTask id="Task_15vqxyx" name="Invalid Apartment" scriptFormat="groovy">
       <bpmn:incoming>SequenceFlow_06k4dug</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1e92zsb</bpmn:outgoing>
-      <bpmn:script>execution.setVariable("isRoomValid", false)
-execution.setVariable("isRoomValidMessage", "Cannot add room without any beds.")</bpmn:script>
+      <bpmn:script>execution.setVariable("isApartmentValid", false)
+execution.setVariable("isApartmentValidMessage", "Cannot add apartment without any rooms.")</bpmn:script>
     </bpmn:scriptTask>
+    <bpmn:scriptTask id="Task_0j5jsp3" name="Valid apartment" scriptFormat="groovy">
+      <bpmn:incoming>SequenceFlow_0527ml4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1s377fu</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("isApartmentValid", true)
+execution.setVariable("isApartmentValidMessage", "Apartment with valid numbers of rooms was registered.")</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1hcxnoe" name="is there any room?" default="SequenceFlow_0527ml4">
+      <bpmn:incoming>SequenceFlow_0zq2koh</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0527ml4</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_06k4dug</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:startEvent id="StartEvent_1" camunda:formKey="embedded:app:forms/RegisterApartment.html" camunda:initiator="lessor">
+      <bpmn:outgoing>SequenceFlow_0zq2koh</bpmn:outgoing>
+    </bpmn:startEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_01bmws0">
-      <bpmndi:BPMNShape id="Participant_0bx0eyy_di" bpmnElement="camunda-project">
+      <bpmndi:BPMNShape id="Participant_0bx0eyy_di" bpmnElement="register-apartment">
         <dc:Bounds x="93" y="-59" width="801" height="387" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
@@ -52,7 +53,7 @@ execution.setVariable("isRoomValidMessage", "Cannot add room without any beds.")
       <bpmndi:BPMNShape id="ExclusiveGateway_1hcxnoe_di" bpmnElement="ExclusiveGateway_1hcxnoe" isMarkerVisible="true">
         <dc:Bounds x="308" y="95" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="367.5" y="113" width="85" height="14" />
+          <dc:Bounds x="368" y="113" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0zq2koh_di" bpmnElement="SequenceFlow_0zq2koh">
