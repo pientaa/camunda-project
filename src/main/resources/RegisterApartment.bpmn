@@ -31,7 +31,7 @@ execution.setVariable("isApartmentValidMessage", "Cannot add apartment without a
       <bpmn:incoming>SequenceFlow_0527ml4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1s377fu</bpmn:outgoing>
       <bpmn:script>execution.setVariable("isApartmentValid", true)
-execution.setVariable("isApartmentValidMessage", "Apartment with valid numbers of rooms was registered.")</bpmn:script>
+execution.setVariable("isApartmentValidMessage", "Apartment with valid number of rooms was registered.")</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:exclusiveGateway id="ExclusiveGateway_1hcxnoe" name="is there any room?" default="SequenceFlow_0527ml4">
       <bpmn:incoming>SequenceFlow_0zq2koh</bpmn:incoming>
