@@ -7,84 +7,85 @@
     <bpmn:laneSet id="LaneSet_1ka7lkd" />
     <bpmn:sequenceFlow id="SequenceFlow_0zq2koh" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_1hcxnoe" />
     <bpmn:sequenceFlow id="SequenceFlow_0527ml4" name="yes" sourceRef="ExclusiveGateway_1hcxnoe" targetRef="Task_0j5jsp3" />
-    <bpmn:sequenceFlow id="SequenceFlow_1s377fu" sourceRef="Task_0j5jsp3" targetRef="Task_1k7bl6x" />
-    <bpmn:sequenceFlow id="SequenceFlow_1x1z9tk" sourceRef="Task_1k7bl6x" targetRef="EndEvent_06yru2z" />
+    <bpmn:sequenceFlow id="SequenceFlow_1s377fu" sourceRef="Task_0j5jsp3" targetRef="Task_1x77czd" />
     <bpmn:sequenceFlow id="SequenceFlow_06k4dug" name="no" sourceRef="ExclusiveGateway_1hcxnoe" targetRef="Task_15vqxyx">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${numberOfRooms&lt;1}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1e92zsb" sourceRef="Task_15vqxyx" targetRef="Task_1k7bl6x" />
+    <bpmn:startEvent id="StartEvent_1" camunda:formKey="embedded:app:forms/RegisterApartment.html" camunda:initiator="lessor">
+      <bpmn:outgoing>SequenceFlow_0zq2koh</bpmn:outgoing>
+    </bpmn:startEvent>
     <bpmn:endEvent id="EndEvent_06yru2z">
-      <bpmn:incoming>SequenceFlow_1x1z9tk</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_175s12l</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Task_1k7bl6x" name="Apartment Confirmation" camunda:formKey="embedded:app:forms/RegisterApartmentConfirmation.html" camunda:assignee="${lessor}">
-      <bpmn:incoming>SequenceFlow_1s377fu</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1e92zsb</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1x1z9tk</bpmn:outgoing>
-    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1hcxnoe" name="is there any room?" default="SequenceFlow_0527ml4">
+      <bpmn:incoming>SequenceFlow_0zq2koh</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0527ml4</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_06k4dug</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
     <bpmn:scriptTask id="Task_15vqxyx" name="Invalid Apartment" scriptFormat="groovy">
       <bpmn:incoming>SequenceFlow_06k4dug</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1e92zsb</bpmn:outgoing>
       <bpmn:script>execution.setVariable("isApartmentValid", false)
 execution.setVariable("isApartmentValidMessage", "Cannot add apartment without any rooms.")</bpmn:script>
     </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="SequenceFlow_07gnop9" sourceRef="Task_1x77czd" targetRef="Task_1k7bl6x" />
     <bpmn:scriptTask id="Task_0j5jsp3" name="Valid apartment" scriptFormat="groovy">
       <bpmn:incoming>SequenceFlow_0527ml4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1s377fu</bpmn:outgoing>
       <bpmn:script>execution.setVariable("isApartmentValid", true)
 execution.setVariable("isApartmentValidMessage", "Apartment with valid number of rooms was registered.")</bpmn:script>
     </bpmn:scriptTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1hcxnoe" name="is there any room?" default="SequenceFlow_0527ml4">
-      <bpmn:incoming>SequenceFlow_0zq2koh</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0527ml4</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_06k4dug</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:startEvent id="StartEvent_1" camunda:formKey="embedded:app:forms/RegisterApartment.html" camunda:initiator="lessor">
-      <bpmn:outgoing>SequenceFlow_0zq2koh</bpmn:outgoing>
-    </bpmn:startEvent>
+    <bpmn:userTask id="Task_1k7bl6x" name="Apartment Confirmation" camunda:formKey="embedded:app:forms/RegisterApartmentConfirmation.html" camunda:assignee="${lessor}">
+      <bpmn:incoming>SequenceFlow_1e92zsb</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_07gnop9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_175s12l</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_1x77czd" name="Apartment Registered" camunda:class="com.pientaa.ApartmentRegisteredDelegate">
+      <bpmn:incoming>SequenceFlow_1s377fu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_07gnop9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_175s12l" sourceRef="Task_1k7bl6x" targetRef="EndEvent_06yru2z" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_01bmws0">
       <bpmndi:BPMNShape id="Participant_0bx0eyy_di" bpmnElement="register-apartment">
-        <dc:Bounds x="93" y="-59" width="801" height="387" />
+        <dc:Bounds x="93" y="-59" width="955" height="436" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="173" y="102" width="36" height="36" />
+        <dc:Bounds x="129" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_1hcxnoe_di" bpmnElement="ExclusiveGateway_1hcxnoe" isMarkerVisible="true">
         <dc:Bounds x="308" y="95" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="368" y="113" width="85" height="14" />
+          <dc:Bounds x="382" y="113" width="58" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0zq2koh_di" bpmnElement="SequenceFlow_0zq2koh">
-        <di:waypoint x="209" y="120" />
+        <di:waypoint x="165" y="120" />
         <di:waypoint x="308" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ScriptTask_0frx3qk_di" bpmnElement="Task_0j5jsp3">
-        <dc:Bounds x="441" y="1" width="100" height="80" />
+        <dc:Bounds x="417" y="1" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0527ml4_di" bpmnElement="SequenceFlow_0527ml4">
         <di:waypoint x="333" y="95" />
         <di:waypoint x="333" y="41" />
-        <di:waypoint x="441" y="41" />
+        <di:waypoint x="417" y="41" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="378" y="23" width="18" height="14" />
+          <dc:Bounds x="366" y="23" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_1qbth7z_di" bpmnElement="Task_1k7bl6x">
-        <dc:Bounds x="605" y="1" width="100" height="80" />
+        <dc:Bounds x="802" y="1" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1s377fu_di" bpmnElement="SequenceFlow_1s377fu">
-        <di:waypoint x="541" y="41" />
-        <di:waypoint x="605" y="41" />
+        <di:waypoint x="517" y="41" />
+        <di:waypoint x="607" y="41" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_06yru2z_di" bpmnElement="EndEvent_06yru2z">
-        <dc:Bounds x="758" y="23" width="36" height="36" />
+        <dc:Bounds x="982" y="23" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1x1z9tk_di" bpmnElement="SequenceFlow_1x1z9tk">
-        <di:waypoint x="705" y="41" />
-        <di:waypoint x="758" y="41" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ScriptTask_1v4ahcb_di" bpmnElement="Task_15vqxyx">
         <dc:Bounds x="441" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -98,8 +99,19 @@ execution.setVariable("isApartmentValidMessage", "Apartment with valid number of
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1e92zsb_di" bpmnElement="SequenceFlow_1e92zsb">
         <di:waypoint x="541" y="210" />
-        <di:waypoint x="655" y="210" />
-        <di:waypoint x="655" y="81" />
+        <di:waypoint x="852" y="210" />
+        <di:waypoint x="852" y="81" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1s28d21_di" bpmnElement="Task_1x77czd">
+        <dc:Bounds x="607" y="1" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_07gnop9_di" bpmnElement="SequenceFlow_07gnop9">
+        <di:waypoint x="707" y="41" />
+        <di:waypoint x="802" y="41" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_175s12l_di" bpmnElement="SequenceFlow_175s12l">
+        <di:waypoint x="902" y="41" />
+        <di:waypoint x="982" y="41" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
