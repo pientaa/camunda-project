@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_054uzuf" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="RegistrationValidation" name="RegistrationValidation">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="Number of rooms">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>numberOfRooms</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0xl83a1" label="Size of apartment">
+        <inputExpression id="LiteralExpression_1vfahce" typeRef="integer">
+          <text>apartmentSize</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_01fbptx" label="DescriptionLength">
+        <inputExpression id="LiteralExpression_0mv873o" typeRef="integer" expressionLanguage="Groovy">
+          <text>apartmentDescription.length()</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Is valid apartment?" name="isApartmentValid" typeRef="boolean" />
+      <output id="OutputClause_125pnu6" label="Validation message" name="isApartmentValidMessage" typeRef="string" />
+      <rule id="DecisionRule_1s6zp57">
+        <inputEntry id="UnaryTests_0mnnucv">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1najshu">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dx7fez">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09juq8i">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k6ujbe">
+          <text>"Apartment registered successfully."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0767dl0">
+        <inputEntry id="UnaryTests_0s5jd2b">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hpyydb">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10wsav5">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ody3by">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12buo5c">
+          <text>"Invalid parameters. Apartment registration failed."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qu7zyj">
+        <inputEntry id="UnaryTests_1n6v5fv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jihqov">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0miwvdm">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xyltar">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ot5yao">
+          <text>"Didn't get all required parameters."</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
