@@ -8,13 +8,6 @@
     $scope.dateFieldOpened = true;
   };
 
-  $scope.open2 = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope.dateFieldOpened2 = true;
-    };
-
-
     </script>
 
     <div class="form-group">
@@ -50,24 +43,13 @@
         </button>
     </span>
     </p>
-    <label for="availableTo">Available to</label>
-    <p class="input-group">
-        <input type="text"
-               cam-variable-name="availableTo"
-               cam-variable-type="Date"
-               class="form-control"
-               uib-datepicker-popup="yyyy-MM-dd'T'HH:mm:ss"
-               is-open="dateFieldOpened2"
-               name="availableTo"/>
-
-        <span class="input-group-btn">
-        <button type="button"
-                class="btn btn-default"
-                ng-click="open2($event)">
-        <i class="glyphicon glyphicon-calendar"></i>
-        </button>
-    </span>
-    </p>
+    <div class="form-group">
+        <label for="reservationDuration">Duration of reservation (in hours)</label>
+        <input class="form-control"
+               cam-variable-type="Integer"
+               cam-variable-name="reservationDuration"
+               name="reservationDuration"/>
+    </div>
     <div class="form-group">
         <label for="apartmentSize">Size of apartment (in square meters)</label>
         <input class="form-control"

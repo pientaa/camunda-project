@@ -42,16 +42,15 @@
                name="availableFrom"
                readonly="true"/>
     </p>
-    <label for="availableTo">Available to</label>
-    <p class="input-group">
-        <input type="text"
-               cam-variable-name="availableTo"
-               cam-variable-type="Date"
-               class="form-control"
-               name="availableTo"
-               readonly="true"/>
 
-    </p>
+    <div class="form-group">
+        <label for="reservationDuration">Duration of reservation (in hours)</label>
+        <input class="form-control"
+               cam-variable-type="Integer"
+               cam-variable-name="reservationDuration"
+               name="reservationDuration"
+               readonly="true"/>
+    </div>
 
     <div class="form-group">
         <label for="isApartmentValid">Is apartment valid?</label>
