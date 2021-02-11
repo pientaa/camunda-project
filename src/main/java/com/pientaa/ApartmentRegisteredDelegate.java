@@ -11,6 +11,7 @@ public class ApartmentRegisteredDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+        delegateExecution.setVariable("apartmentName", "ChangedName");
         LOGGER.info("Apartment name: '" + delegateExecution.getVariable("apartmentName") + "'...");
     }
 }
