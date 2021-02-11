@@ -10,6 +10,4 @@ services:
     ports:
       - "8080:8080"
       - "9990:9990"
-    #    volumes:
-    #      - ./wars:/camunda/standalone/deployments
     restart: unless-stopped
