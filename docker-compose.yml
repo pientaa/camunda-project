@@ -9,6 +9,7 @@ services:
     ports:
       - "5432:5432"
     environment:
+      TZ: "Poland/Warsaw"
       POSTGRES_DB: camunda-db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -24,6 +25,7 @@ services:
       - "9990:9990"
     restart: unless-stopped
     environment:
+      TZ: "Poland/Warsaw"
       DB_DRIVER: org.postgresql.Driver
       DB_URL: jdbc:postgresql://postgres:5432/camunda-db?autoReconnect=true
       DB_USERNAME: postgres
