@@ -5,7 +5,7 @@
   </bpmn:collaboration>
   <bpmn:process id="RegisterApartment" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1ka7lkd">
-      <bpmn:lane id="Lane_0wkgx8x" name="Apartment Comuter Service">
+      <bpmn:lane id="Lane_0wkgx8x" name="Apartment Computer Service">
         <bpmn:flowNodeRef>Task_1x77czd</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_01e01rd" name="Lessor">
