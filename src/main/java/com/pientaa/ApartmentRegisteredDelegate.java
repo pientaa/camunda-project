@@ -8,16 +8,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.logging.Logger;
 
 public class ApartmentRegisteredDelegate implements JavaDelegate {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
     static final String DB_URL = "jdbc:postgresql://postgres:5432/camunda-db";
-
     static final String USER = "postgres";
     static final String PASS = "postgres";
-
-    private final static Logger LOGGER = Logger.getLogger("com.pientaa.ApartmentRegisteredDelegate");
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
