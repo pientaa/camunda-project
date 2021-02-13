@@ -1,6 +1,10 @@
 #!/bin/bash
 
-echo "Building war ..."
+echo "Building wars ..."
+cd register
+mvn clean install
+
+cd ../book
 mvn clean install
 
 echo "Removing all existing docker containers ..."
