@@ -24,3 +24,7 @@ hs_err_pid*
 /.idea/
 *.iml
 /target/
+/register/.idea/
+/register/target/
+/book/.idea/
+/book/target/
