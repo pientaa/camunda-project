@@ -5,6 +5,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class BookApartmentDelegate implements JavaDelegate {
@@ -33,13 +34,28 @@ public class BookApartmentDelegate implements JavaDelegate {
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
 
-            LOGGER.info(String.valueOf(rs.getInt("rooms")));
-            LOGGER.info(String.valueOf(rs.getInt("size")));
-            LOGGER.info(rs.getString("description"));
-            LOGGER.info(String.valueOf(rs.getTimestamp("available_from")));
-            LOGGER.info(String.valueOf(rs.getInt("duration")));
+            Integer rooms = rs.getInt("rooms");
+            Integer size = rs.getInt("size");
+            String description = rs.getString("description");
+            Date from = rs.getTimestamp("available_from");
+            Integer duration = rs.getInt("duration");
+
+
+            delegateExecution.setVariable("numberOfRooms", rooms);
+            delegateExecution.setVariable("apartmentSize", size);
+            delegateExecution.setVariable("apartmentDescription", description);
+            delegateExecution.setVariable("availableFrom", from);
+            delegateExecution.setVariable("reservationDuration", duration);
+            delegateExecution.setVariable("isApartmentAvailable", true);
+
+            LOGGER.info(String.valueOf(rooms));
+            LOGGER.info(String.valueOf(size));
+            LOGGER.info(description);
+            LOGGER.info(String.valueOf(from));
+            LOGGER.info(String.valueOf(duration));
 
         } catch (SQLException se) {
+            delegateExecution.setVariable("isApartmentAvailable", false);
             se.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();

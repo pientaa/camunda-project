@@ -7,4 +7,48 @@
                name="apartmentName"
                readonly="true"/>
     </div>
+    <div class="form-group">
+        <label for="numberOfRooms">Number of rooms</label>
+        <input class="form-control"
+               cam-variable-type="Integer"
+               cam-variable-name="numberOfRooms"
+               name="numberOfRooms"
+               readonly="true"/>
+    </div>
+    <div class="form-group">
+        <label for="apartmentSize">Size of apartment (in square meters)</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="apartmentSize"
+               name="apartmentSize"
+               readonly="true"/>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input class="form-control"
+               cam-variable-type="String"
+               cam-variable-name="apartmentDescription"
+               name="apartmentDescription"
+               readonly="true"/>
+    </div>
+
+    <label for="availableFrom">Available from</label>
+    <p class="input-group">
+        <input type="text"
+               cam-variable-name="availableFrom"
+               cam-variable-type="Date"
+               class="form-control"
+               name="availableFrom"
+               readonly="true"/>
+    </p>
+
+    <div class="form-group">
+        <label for="reservationDuration">Duration of reservation (in hours)</label>
+        <input class="form-control"
+               cam-variable-type="Integer"
+               cam-variable-name="reservationDuration"
+               name="reservationDuration"
+               readonly="true"/>
+    </div>
 </form>
