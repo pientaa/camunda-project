@@ -33,7 +33,13 @@ public class BookApartmentDelegate implements JavaDelegate {
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
 
+//            TODO: Set variables
+
+            LOGGER.info(rs.getString("rooms"));
+            LOGGER.info(rs.getString("size"));
             LOGGER.info(rs.getString("description"));
+            LOGGER.info(rs.getString("available_from"));
+            LOGGER.info(rs.getString("duration"));
 
         } catch (SQLException se) {
             se.printStackTrace();
