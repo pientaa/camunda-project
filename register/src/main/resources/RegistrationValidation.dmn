@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_054uzuf" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="RegistrationValidation" name="RegistrationValidation">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="Number of rooms">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>numberOfRooms</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0xl83a1" label="Size of apartment">
+        <inputExpression id="LiteralExpression_1vfahce" typeRef="integer">
+          <text>apartmentSize</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_01fbptx" label="DescriptionLength">
+        <inputExpression id="LiteralExpression_0mv873o" typeRef="integer" expressionLanguage="Groovy">
+          <text>apartmentDescription.length()</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Is valid apartment?" name="isApartmentValid" typeRef="boolean" />
+      <output id="OutputClause_125pnu6" label="Validation message" name="isApartmentValidMessage" typeRef="string" />
+      <rule id="DecisionRule_1s6zp57">
+        <inputEntry id="UnaryTests_0mnnucv">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1najshu">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dx7fez">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09juq8i">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k6ujbe">
+          <text>"Apartment registered successfully."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0767dl0">
+        <inputEntry id="UnaryTests_0s5jd2b">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hpyydb">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10wsav5">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ody3by">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12buo5c">
+          <text>"Number of rooms must be higher than 0."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cmfhkk">
+        <inputEntry id="UnaryTests_0tviioc">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hhr6dx">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wre1u3">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06vbxd3">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0re9wol">
+          <text>"Size of apartment cannot be less than 11."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wpq8u2">
+        <inputEntry id="UnaryTests_09pl63u">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gmeuks">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10fvcm9">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0isvk8w">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hwzf6v">
+          <text>"Length of description cannot be less than 11."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11afn06">
+        <inputEntry id="UnaryTests_06ytc6u">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05pdvvb">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10e7jsj">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gedot0">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_128sks5">
+          <text>"More than one parameter is invalid"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fkhhx9">
+        <inputEntry id="UnaryTests_0yd1t43">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qfommi">
+          <text>&gt; 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0187t3k">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n9ky4x">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vtlr6w">
+          <text>"More than one parameter is invalid"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cwz24l">
+        <inputEntry id="UnaryTests_0aozp3z">
+          <text>&gt; 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nyst6f">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f9ntka">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xbjf8j">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jij2ro">
+          <text>"More than one parameter is invalid"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p6arh8">
+        <inputEntry id="UnaryTests_1y1npde">
+          <text>&lt;= 0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dzns24">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0extnm8">
+          <text>&lt;= 10</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v8472x">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14y2qeo">
+          <text>"More than one parameter is invalid"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

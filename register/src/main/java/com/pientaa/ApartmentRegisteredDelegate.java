@@ -3,17 +3,17 @@ package com.pientaa;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.logging.Logger;
 
-public class BookApartmentDelegate implements JavaDelegate {
+public class ApartmentRegisteredDelegate implements JavaDelegate {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
     static final String DB_URL = "jdbc:postgresql://postgres:5432/camunda-db";
     static final String USER = "postgres";
     static final String PASS = "postgres";
-    private final static Logger LOGGER = Logger.getLogger("com.pientaa.BookApartmentDelegate");
-
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
@@ -27,17 +27,15 @@ public class BookApartmentDelegate implements JavaDelegate {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();
 
-            String sql = "select name, rooms, size, description, available_from, duration" +
-                    " from apartment where name = '" + delegateExecution.getVariable("apartmentName") + "'";
+            String sql = "insert into apartment(name, rooms, size, description, available_from, duration)  " +
+                    "values ('" + delegateExecution.getVariable("apartmentName") + "', " +
+                    delegateExecution.getVariable("numberOfRooms") + ", " +
+                    delegateExecution.getVariable("apartmentSize") + ", '" +
+                    delegateExecution.getVariable("apartmentDescription") + "', '" +
+                    format.format(delegateExecution.getVariable("availableFrom")) + "', " +
+                    delegateExecution.getVariable("reservationDuration") + ")";
 
-            ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-
-            LOGGER.info(String.valueOf(rs.getInt("rooms")));
-            LOGGER.info(String.valueOf(rs.getInt("size")));
-            LOGGER.info(rs.getString("description"));
-            LOGGER.info(String.valueOf(rs.getTimestamp("available_from")));
-            LOGGER.info(String.valueOf(rs.getInt("duration")));
+            stmt.executeUpdate(sql);
 
         } catch (SQLException se) {
             se.printStackTrace();
@@ -59,4 +57,3 @@ public class BookApartmentDelegate implements JavaDelegate {
         }
     }
 }
-
