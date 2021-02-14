@@ -6,25 +6,23 @@
   <bpmn:process id="BookApartment" name="BookApartment" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0umtdwq">
       <bpmn:lane id="Lane_0eoci6r" name="Party organizer">
-        <bpmn:flowNodeRef>StartEvent_1w39q0z</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>IntermediateThrowEvent_0676bev</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0au32s1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>EndEvent_057es63</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1gd7qgx</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1fynx70</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1w39q0z</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>IntermediateThrowEvent_0676bev</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_057es63</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1kw4ezt" name="Apartment Computer Service">
         <bpmn:flowNodeRef>Task_04r11r7</bpmn:flowNodeRef>
       </bpmn:lane>
+      <bpmn:lane id="Lane_0nfbur8" name="Lessor">
+        <bpmn:flowNodeRef>StartEvent_1hq5mjt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1lnguym</bpmn:flowNodeRef>
+      </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_1w39q0z" camunda:formKey="embedded:app:forms/BookApartment.html" camunda:initiator="organizer">
-      <bpmn:outgoing>SequenceFlow_0d3hghw</bpmn:outgoing>
-    </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0a6i1vw" sourceRef="Task_1gd7qgx" targetRef="EndEvent_057es63" />
     <bpmn:sequenceFlow id="SequenceFlow_0d3hghw" sourceRef="StartEvent_1w39q0z" targetRef="Task_04r11r7" />
-    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_0676bev" name="Booking Request" camunda:asyncBefore="true">
-      <bpmn:messageEventDefinition messageRef="BookingRequestId" camunda:class="com.pientaa.BookingRequest" />
-    </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0y5cvjc" sourceRef="Task_04r11r7" targetRef="ExclusiveGateway_0au32s1" />
     <bpmn:serviceTask id="Task_04r11r7" name="Get apartment offert from DB" camunda:class="com.pientaa.BookApartmentDelegate">
       <bpmn:incoming>SequenceFlow_0d3hghw</bpmn:incoming>
@@ -44,10 +42,6 @@
       <bpmn:outgoing>SequenceFlow_1u956pd</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0ew9rv3</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="EndEvent_057es63">
-      <bpmn:incoming>SequenceFlow_0a6i1vw</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1pu82pm</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:userTask id="Task_1gd7qgx" name="Booking Successful" camunda:formKey="embedded:app:forms/BookApartmentConfirmation.html" camunda:assignee="${organizer}">
       <bpmn:incoming>SequenceFlow_1u956pd</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0a6i1vw</bpmn:outgoing>
@@ -60,30 +54,46 @@
       <bpmn:outgoing>SequenceFlow_1pu82pm</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="SequenceFlow_1pu82pm" sourceRef="Task_1fynx70" targetRef="EndEvent_057es63" />
+    <bpmn:startEvent id="StartEvent_1w39q0z" camunda:formKey="embedded:app:forms/BookApartment.html" camunda:initiator="organizer">
+      <bpmn:outgoing>SequenceFlow_0d3hghw</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_0676bev" name="Booking Request" camunda:asyncBefore="true">
+      <bpmn:messageEventDefinition messageRef="BookingRequestId" camunda:class="com.pientaa.BookingRequest" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:endEvent id="EndEvent_057es63">
+      <bpmn:incoming>SequenceFlow_0a6i1vw</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1pu82pm</bpmn:incoming>
+      <bpmn:messageEventDefinition messageRef="BookingRequestId" camunda:class="com.pientaa.BookingRequest" />
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_1hq5mjt" camunda:initiator="lessor">
+      <bpmn:outgoing>SequenceFlow_1qkxw2t</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="BookingRequestId" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1qkxw2t" sourceRef="StartEvent_1hq5mjt" targetRef="EndEvent_1lnguym" />
+    <bpmn:endEvent id="EndEvent_1lnguym">
+      <bpmn:incoming>SequenceFlow_1qkxw2t</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="BookingRequestId" name="BookingRequest" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1rsc4nd">
       <bpmndi:BPMNShape id="Participant_1rw1yq5_di" bpmnElement="book-apartment">
-        <dc:Bounds x="164" y="72" width="901" height="638" />
+        <dc:Bounds x="164" y="28" width="899" height="802" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1w39q0z_di" bpmnElement="StartEvent_1w39q0z">
-        <dc:Bounds x="302" y="269" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_057es63_di" bpmnElement="EndEvent_057es63">
-        <dc:Bounds x="903" y="154" width="36" height="36" />
+        <dc:Bounds x="326" y="269" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="IntermediateThrowEvent_0hz4p6o_di" bpmnElement="IntermediateThrowEvent_0676bev">
-        <dc:Bounds x="245" y="340" width="36" height="36" />
+        <dc:Bounds x="790" y="48" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="221" y="383" width="84" height="14" />
+          <dc:Bounds x="766" y="91" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0eoci6r_di" bpmnElement="Lane_0eoci6r">
-        <dc:Bounds x="194" y="72" width="871" height="340" />
+        <dc:Bounds x="194" y="28" width="869" height="384" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1kw4ezt_di" bpmnElement="Lane_1kw4ezt">
-        <dc:Bounds x="194" y="412" width="871" height="298" />
+        <dc:Bounds x="194" y="412" width="869" height="298" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0a6i1vw_di" bpmnElement="SequenceFlow_0a6i1vw">
         <di:waypoint x="684" y="172" />
@@ -93,7 +103,7 @@
         <dc:Bounds x="584" y="132" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0d3hghw_di" bpmnElement="SequenceFlow_0d3hghw">
-        <di:waypoint x="338" y="287" />
+        <di:waypoint x="362" y="287" />
         <di:waypoint x="413" y="287" />
         <di:waypoint x="413" y="492" />
         <di:waypoint x="485" y="492" />
@@ -144,6 +154,22 @@
         <di:waypoint x="921" y="287" />
         <di:waypoint x="921" y="190" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0we5rl3_di" bpmnElement="EndEvent_057es63">
+        <dc:Bounds x="903" y="154" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_049ului_di" bpmnElement="StartEvent_1hq5mjt">
+        <dc:Bounds x="252" y="748" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0nfbur8_di" bpmnElement="Lane_0nfbur8">
+        <dc:Bounds x="194" y="710" width="869" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qkxw2t_di" bpmnElement="SequenceFlow_1qkxw2t">
+        <di:waypoint x="288" y="766" />
+        <di:waypoint x="488" y="766" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1lnguym_di" bpmnElement="EndEvent_1lnguym">
+        <dc:Bounds x="488" y="748" width="36" height="36" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

@@ -73,6 +73,32 @@ public class BookApartmentDelegate implements JavaDelegate {
                 se.printStackTrace();
             }
         }
+
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+
+            String sql_2 = "delete from apartment where name = '" + delegateExecution.getVariable("apartmentName") + "'";
+
+            stmt.execute(sql_2);
+
+        } catch (Exception se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException se) {
+                //Do nothing
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
     }
 }
 

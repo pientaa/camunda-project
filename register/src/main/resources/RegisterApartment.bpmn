@@ -12,8 +12,8 @@
         <bpmn:flowNodeRef>ExclusiveGateway_1hcxnoe</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_05h2518</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1k7bl6x</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>EndEvent_06yru2z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_06yru2z</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="SequenceFlow_07gnop9" sourceRef="Task_1x77czd" targetRef="Task_1k7bl6x" />
@@ -55,19 +55,19 @@
       <bpmn:incoming>SequenceFlow_1t87m72</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_175s12l</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="EndEvent_06yru2z">
-      <bpmn:incoming>SequenceFlow_175s12l</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:startEvent id="StartEvent_1" camunda:formKey="embedded:app:forms/RegisterApartment.html" camunda:initiator="lessor">
       <bpmn:outgoing>SequenceFlow_1rn41hl</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:dataStoreReference id="DataStoreReference_0llbexg" name="Database" />
+    <bpmn:endEvent id="EndEvent_06yru2z">
+      <bpmn:incoming>SequenceFlow_175s12l</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:message id="BookingRequestId" name="BookingRequest" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_01bmws0">
       <bpmndi:BPMNShape id="Participant_0bx0eyy_di" bpmnElement="register-apartment">
-        <dc:Bounds x="-143" y="-60" width="1383" height="640" />
+        <dc:Bounds x="-143" y="-60" width="849" height="514" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="-35" y="270" width="36" height="36" />
@@ -82,7 +82,7 @@
         <dc:Bounds x="398" y="248" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_06yru2z_di" bpmnElement="EndEvent_06yru2z">
-        <dc:Bounds x="1165" y="270" width="36" height="36" />
+        <dc:Bounds x="613" y="270" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_1s28d21_di" bpmnElement="Task_1x77czd">
         <dc:Bounds x="328" y="1" width="100" height="80" />
@@ -94,7 +94,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_175s12l_di" bpmnElement="SequenceFlow_175s12l">
         <di:waypoint x="498" y="288" />
-        <di:waypoint x="1165" y="288" />
+        <di:waypoint x="613" y="288" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1rn41hl_di" bpmnElement="SequenceFlow_1rn41hl">
         <di:waypoint x="1" y="288" />
@@ -123,10 +123,10 @@
         <dc:Bounds x="88" y="248" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0wkgx8x_di" bpmnElement="Lane_0wkgx8x">
-        <dc:Bounds x="-113" y="-60" width="1353" height="271" />
+        <dc:Bounds x="-113" y="-60" width="819" height="271" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_01e01rd_di" bpmnElement="Lane_01e01rd">
-        <dc:Bounds x="-113" y="211" width="1353" height="369" />
+        <dc:Bounds x="-113" y="211" width="819" height="243" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_0llbexg_di" bpmnElement="DataStoreReference_0llbexg">
         <dc:Bounds x="501" y="-44" width="50" height="50" />

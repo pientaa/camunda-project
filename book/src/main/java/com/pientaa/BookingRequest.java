@@ -13,6 +13,6 @@ public class BookingRequest implements JavaDelegate {
         Map<String, Object> processVariables = new HashMap<>();
         processVariables.put("parentBussinesKey", execution.getProcessInstanceId());
         processVariables.put("apartmentName", execution.getVariable("apartmentName"));
-        runtimeService.startProcessInstanceByMessage("BookApartment", processVariables);
+        runtimeService.startProcessInstanceByMessage("BookingRequest", processVariables);
     }
 }
