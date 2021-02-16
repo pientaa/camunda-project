@@ -6,7 +6,7 @@
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_02u0dhb" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_0mwwhgm" />
     <bpmn:endEvent id="EndEvent_1t6s45c">
-      <bpmn:incoming>SequenceFlow_1utmk7a</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0qc40ec</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0gr4dum" sourceRef="Task_0q54tci" targetRef="ExclusiveGateway_1pofl0m" />
     <bpmn:userTask id="Task_0q54tci" name="Settle payment" camunda:assignee="${organizer}">
@@ -41,7 +41,7 @@
       <bpmn:incoming>SequenceFlow_1jqyfrx</bpmn:incoming>
       <bpmn:errorEventDefinition errorRef="Error_10cj1nu" />
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1utmk7a" sourceRef="Task_0w01cjr" targetRef="EndEvent_1t6s45c" />
+    <bpmn:sequenceFlow id="SequenceFlow_1utmk7a" sourceRef="Task_0w01cjr" targetRef="Task_1on7bek" />
     <bpmn:scriptTask id="Task_0w01cjr" name="Create transaction number" camunda:resultVariable="transactionNumber">
       <bpmn:incoming>SequenceFlow_1h28j31</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1utmk7a</bpmn:outgoing>
@@ -56,6 +56,11 @@
       <bpmn:outgoing>SequenceFlow_1pe4ism</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_1pe4ism" sourceRef="ExclusiveGateway_0mwwhgm" targetRef="Task_0q54tci" />
+    <bpmn:sequenceFlow id="SequenceFlow_0qc40ec" sourceRef="Task_1on7bek" targetRef="EndEvent_1t6s45c" />
+    <bpmn:userTask id="Task_1on7bek" name="Confirm transaction" camunda:formKey="embedded:app:forms/PaymentConfirmation.html" camunda:assignee="${organizer}">
+      <bpmn:incoming>SequenceFlow_1utmk7a</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0qc40ec</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmn:error id="Error_13uykat" name="agreementFailure" errorCode="agreementFailureErrCode" />
   <bpmn:error id="Error_10cj1nu" name="amountError" errorCode="amountErrorErrCode" />
@@ -69,7 +74,7 @@
         <di:waypoint x="205" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1t6s45c_di" bpmnElement="EndEvent_1t6s45c">
-        <dc:Bounds x="961" y="102" width="36" height="36" />
+        <dc:Bounds x="1149" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0gr4dum_di" bpmnElement="SequenceFlow_0gr4dum">
         <di:waypoint x="405" y="120" />
@@ -120,7 +125,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1utmk7a_di" bpmnElement="SequenceFlow_1utmk7a">
         <di:waypoint x="898" y="120" />
-        <di:waypoint x="961" y="120" />
+        <di:waypoint x="975" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ScriptTask_0omhqb2_di" bpmnElement="Task_0w01cjr">
         <dc:Bounds x="798" y="80" width="100" height="80" />
@@ -141,6 +146,13 @@
         <di:waypoint x="255" y="120" />
         <di:waypoint x="305" y="120" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qc40ec_di" bpmnElement="SequenceFlow_0qc40ec">
+        <di:waypoint x="1075" y="120" />
+        <di:waypoint x="1149" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_18grc9u_di" bpmnElement="Task_1on7bek">
+        <dc:Bounds x="975" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

@@ -13,6 +13,14 @@ public class BookingRequest implements JavaDelegate {
         Map<String, Object> processVariables = new HashMap<>();
         processVariables.put("parentBussinesKey", execution.getProcessInstanceId());
         processVariables.put("apartmentName", execution.getVariable("apartmentName"));
+        processVariables.put("numberOfRooms", execution.getVariable("numberOfRooms"));
+        processVariables.put("apartmentSize", execution.getVariable("apartmentSize"));
+        processVariables.put("apartmentDescription", execution.getVariable("apartmentDescription"));
+        processVariables.put("availableFrom", execution.getVariable("availableFrom"));
+        processVariables.put("reservationDuration", execution.getVariable("reservationDuration"));
+        processVariables.put("transactionNumber", execution.getVariable("transactionNumber"));
+        processVariables.put("paymentStatus", execution.getVariable("paymentStatus"));
+        processVariables.put("opinion", execution.getVariable("opinion"));
         runtimeService.startProcessInstanceByMessage("BookingRequest", processVariables);
     }
 }
